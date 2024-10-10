@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: authentik
-  version: 2024.6.3
+  version: 2024.8.3
   description: Making authentication simple.
   contact:
     email: hello@goauthentik.io
@@ -5842,9 +5842,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenericError'
           description: ''
-  /enterprise/license/get_install_id/:
+  /enterprise/license/install_id/:
     get:
-      operationId: enterprise_license_get_install_id_retrieve
+      operationId: enterprise_license_install_id_retrieve
       description: Get install_id
       tags:
       - enterprise
@@ -5873,6 +5873,12 @@ paths:
     get:
       operationId: enterprise_license_summary_retrieve
       description: Get the total license status
+      parameters:
+      - in: query
+        name: cached
+        schema:
+          type: boolean
+          default: true
       tags:
       - enterprise
       security:
@@ -17853,6 +17859,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenericError'
           description: ''
+  /providers/google_workspace/{id}/sync/object/:
+    post:
+      operationId: providers_google_workspace_sync_object_create
+      description: Sync/Re-sync a single user/group object
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Google Workspace Provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncObjectRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncObjectResult'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: ''
   /providers/google_workspace/{id}/sync/status/:
     get:
       operationId: providers_google_workspace_sync_status_retrieve
@@ -18844,6 +18890,46 @@ paths:
       responses:
         '204':
           description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: ''
+  /providers/microsoft_entra/{id}/sync/object/:
+    post:
+      operationId: providers_microsoft_entra_sync_object_create
+      description: Sync/Re-sync a single user/group object
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Microsoft Entra Provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncObjectRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncObjectResult'
+          description: ''
         '400':
           content:
             application/json:
@@ -20665,6 +20751,11 @@ paths:
           - http://www.w3.org/2001/04/xmlenc#sha256
           - http://www.w3.org/2001/04/xmlenc#sha512
       - in: query
+        name: encryption_kp
+        schema:
+          type: string
+          format: uuid
+      - in: query
         name: is_backchannel
         schema:
           type: boolean
@@ -20718,6 +20809,14 @@ paths:
         name: session_valid_not_on_or_after
         schema:
           type: string
+      - in: query
+        name: sign_assertion
+        schema:
+          type: boolean
+      - in: query
+        name: sign_response
+        schema:
+          type: boolean
       - in: query
         name: signature_algorithm
         schema:
@@ -21321,6 +21420,46 @@ paths:
       responses:
         '204':
           description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: ''
+  /providers/scim/{id}/sync/object/:
+    post:
+      operationId: providers_scim_sync_object_create
+      description: Sync/Re-sync a single user/group object
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this SCIM Provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncObjectRequest'
+        required: true
+      security:
+      - authentik: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncObjectResult'
+          description: ''
         '400':
           content:
             application/json:
@@ -41481,14 +41620,14 @@ components:
     LoginChallengeTypes:
       oneOf:
       - $ref: '#/components/schemas/RedirectChallenge'
-      - $ref: '#/components/schemas/PlexAuthenticationChallenge'
       - $ref: '#/components/schemas/AppleLoginChallenge'
+      - $ref: '#/components/schemas/PlexAuthenticationChallenge'
       discriminator:
         propertyName: component
         mapping:
           xak-flow-redirect: '#/components/schemas/RedirectChallenge'
-          ak-source-plex: '#/components/schemas/PlexAuthenticationChallenge'
           ak-source-oauth-apple: '#/components/schemas/AppleLoginChallenge'
+          ak-source-plex: '#/components/schemas/PlexAuthenticationChallenge'
     LoginMetrics:
       type: object
       description: Login Metrics per 1h
@@ -46866,6 +47005,18 @@ components:
           title: Verification Certificate
           description: When selected, incoming assertion's Signatures will be validated
             against this certificate. To allow unsigned Requests, leave on default.
+        encryption_kp:
+          type: string
+          format: uuid
+          nullable: true
+          title: Encryption Keypair
+          description: When selected, incoming assertions are encrypted by the IdP
+            using the public key of the encryption keypair. The assertion is decrypted
+            by the SP using the the private key.
+        sign_assertion:
+          type: boolean
+        sign_response:
+          type: boolean
         sp_binding:
           allOf:
           - $ref: '#/components/schemas/SpBindingEnum'
@@ -49581,6 +49732,18 @@ components:
           title: Verification Certificate
           description: When selected, incoming assertion's Signatures will be validated
             against this certificate. To allow unsigned Requests, leave on default.
+        encryption_kp:
+          type: string
+          format: uuid
+          nullable: true
+          title: Encryption Keypair
+          description: When selected, incoming assertions are encrypted by the IdP
+            using the public key of the encryption keypair. The assertion is decrypted
+            by the SP using the the private key.
+        sign_assertion:
+          type: boolean
+        sign_response:
+          type: boolean
         sp_binding:
           allOf:
           - $ref: '#/components/schemas/SpBindingEnum'
@@ -49725,6 +49888,18 @@ components:
           title: Verification Certificate
           description: When selected, incoming assertion's Signatures will be validated
             against this certificate. To allow unsigned Requests, leave on default.
+        encryption_kp:
+          type: string
+          format: uuid
+          nullable: true
+          title: Encryption Keypair
+          description: When selected, incoming assertions are encrypted by the IdP
+            using the public key of the encryption keypair. The assertion is decrypted
+            by the SP using the the private key.
+        sign_assertion:
+          type: boolean
+        sign_response:
+          type: boolean
         sp_binding:
           allOf:
           - $ref: '#/components/schemas/SpBindingEnum'
@@ -51305,6 +51480,34 @@ components:
       - user_email
       - user_upn
       type: string
+    SyncObjectModelEnum:
+      enum:
+      - authentik.core.models.User
+      - authentik.core.models.Group
+      type: string
+    SyncObjectRequest:
+      type: object
+      description: Sync object serializer
+      properties:
+        sync_object_model:
+          $ref: '#/components/schemas/SyncObjectModelEnum'
+        sync_object_id:
+          type: string
+          minLength: 1
+      required:
+      - sync_object_id
+      - sync_object_model
+    SyncObjectResult:
+      type: object
+      description: Result of a single object sync
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEvent'
+          readOnly: true
+      required:
+      - messages
     SyncStatus:
       type: object
       description: Provider sync status

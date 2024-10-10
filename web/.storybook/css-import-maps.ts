@@ -8,6 +8,9 @@
 // and we'll have one unified way of doing this.  I can only hope.
 
 const rawCssImportMaps = [
+    'import AKGlobal from "../../../common/styles/authentik.css";',
+    'import AKGlobal from "../../common/styles/authentik.css";',
+    'import AKGlobal from "../common/styles/authentik.css";',
     'import AKGlobal from "@goauthentik/common/styles/authentik.css";',
     'import PFAlert from "@patternfly/patternfly/components/Alert/alert.css";',
     'import PFAlertGroup from "@patternfly/patternfly/components/AlertGroup/alert-group.css";',
@@ -50,6 +53,7 @@ const rawCssImportMaps = [
     'import PFNotificationDrawer from "@patternfly/patternfly/components/NotificationDrawer/notification-drawer.css";',
     'import PFPage from "@patternfly/patternfly/components/Page/page.css";',
     'import PFPagination from "@patternfly/patternfly/components/Pagination/pagination.css";',
+    'import PFProgress from "@patternfly/patternfly/components/Progress/progress.css";',
     'import PFProgressStepper from "@patternfly/patternfly/components/ProgressStepper/progress-stepper.css";',
     'import PFRadio from "@patternfly/patternfly/components/Radio/radio.css";',
     'import PFSelect from "@patternfly/patternfly/components/Select/select.css";',

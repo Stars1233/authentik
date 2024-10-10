@@ -43,7 +43,7 @@ COPY ./gen-ts-api /work/web/node_modules/@goauthentik/api
 RUN npm run build
 
 # Stage 3: Build go proxy
-FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/oss/go/microsoft/golang:1.22-fips-bookworm AS go-builder
+FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/oss/go/microsoft/golang:1.23-fips-bookworm AS go-builder
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -94,7 +94,7 @@ RUN --mount=type=secret,id=GEOIPUPDATE_ACCOUNT_ID \
     /bin/sh -c "/usr/bin/entry.sh || echo 'Failed to get GeoIP database, disabling'; exit 0"
 
 # Stage 5: Python dependencies
-FROM ghcr.io/goauthentik/fips-python:3.12.5-slim-bookworm-fips-full AS python-deps
+FROM ghcr.io/goauthentik/fips-python:3.12.7-slim-bookworm-fips-full AS python-deps
 
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -124,7 +124,7 @@ RUN --mount=type=bind,target=./pyproject.toml,src=./pyproject.toml \
     pip install --force-reinstall /wheels/*"
 
 # Stage 6: Run
-FROM ghcr.io/goauthentik/fips-python:3.12.5-slim-bookworm-fips-full AS final-image
+FROM ghcr.io/goauthentik/fips-python:3.12.7-slim-bookworm-fips-full AS final-image
 
 ARG VERSION
 ARG GIT_BUILD_HASH

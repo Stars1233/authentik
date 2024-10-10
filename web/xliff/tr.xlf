@@ -826,10 +826,6 @@
         <source>Select which scopes can be used by the client. The client still has to specify the scope to access the data.</source>
         <target>İstemci tarafından hangi kapsamların kullanılabileceğini seçin. İstemci yine de verilere erişmek için kapsamı belirtmelidir.</target>
       </trans-unit>
-      <trans-unit id="sffd2e553143d1b0e">
-        <source>Hold control/command to select multiple items.</source>
-        <target>Birden fazla öğe seçmek için control/command tuşunu basılı tut.</target>
-      </trans-unit>
       <trans-unit id="s26bf2730430efbea">
         <source>Subject mode</source>
         <target>Konu modu</target>
@@ -1801,10 +1797,6 @@
       <trans-unit id="s890810efbe103cbc">
         <source>Match created events with this action type. When left empty, all action types will be matched.</source>
         <target>Oluşturulan olayları bu eylem türüyle eşleştirin. Boş bırakıldığında tüm eylem türleri eşleştirilir.</target>
-      </trans-unit>
-      <trans-unit id="sfab527528ea64618">
-        <source>Matches Event's Client IP (strict matching, for network matching use an Expression Policy.</source>
-        <target>Olayın İstemci IP'siyle eşleşir (katı eşleştirme, ağ eşleştirme için bir İfade İlkesi kullanın.</target>
       </trans-unit>
       <trans-unit id="s5a15a8f39c699273">
         <source>Match events created by selected application. When left empty, all applications are matched.</source>
@@ -3956,13 +3948,6 @@ doesn't pass when either or both of the selected options are equal or above the 
         <source>Fields</source>
         <target>Alanlar</target>
       </trans-unit>
-      <trans-unit id="s2d5f69929bb7221d">
-        <source><x id="0" equiv-text="${prompt.name}"/> ("<x id="1" equiv-text="${prompt.fieldKey}"/>", of type <x id="2" equiv-text="${prompt.type}"/>)</source>
-        <target>
-        <x id="0" equiv-text="${prompt.name}"/>(“
-        <x id="1" equiv-text="${prompt.fieldKey}"/>”,
-        <x id="2" equiv-text="${prompt.type}"/>türünde)</target>
-      </trans-unit>
       <trans-unit id="s3b7b519444181264">
         <source>Validation Policies</source>
         <target>Doğrulama İlkeleri</target>
@@ -5544,9 +5529,6 @@ Bindings to groups/users are checked against the user of the event.</source>
 <trans-unit id="s15831fa50a116545">
   <source>Saving Application...</source>
 </trans-unit>
-<trans-unit id="s823abdb61543a826">
-  <source>Authentik was unable to save this application:</source>
-</trans-unit>
 <trans-unit id="s848288f8c2265aad">
   <source>Your application has been saved</source>
 </trans-unit>
@@ -6557,9 +6539,6 @@ Bindings to groups/users are checked against the user of the event.</source>
 <trans-unit id="s4facec1106c91cf9">
   <source>Search returned no results.</source>
 </trans-unit>
-<trans-unit id="s11ec812e25ceef8a">
-  <source>No messages found</source>
-</trans-unit>
 <trans-unit id="s23446284b56ca0cc">
   <source>Reputation score(s)</source>
 </trans-unit>
@@ -6736,6 +6715,99 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s354405ae02cb262d">
   <source>Last seen: <x id="0" equiv-text="${getRelativeTime(lastSeen)}"/> (<x id="1" equiv-text="${lastSeen.toLocaleTimeString()}"/>)</source>
+</trans-unit>
+<trans-unit id="s5aebe06e3ddf6ca9">
+  <source>Sign assertions</source>
+</trans-unit>
+<trans-unit id="s4e2329ffa0ef6b74">
+  <source>When enabled, the assertion element of the SAML response will be signed.</source>
+</trans-unit>
+<trans-unit id="s2ad1b968b37ded68">
+  <source>Sign responses</source>
+</trans-unit>
+<trans-unit id="sb416d07987093cd5">
+  <source>When selected, assertions will be encrypted using this keypair.</source>
+</trans-unit>
+<trans-unit id="sa42be520242dec2a">
+  <source>Available Sources</source>
+</trans-unit>
+<trans-unit id="s876e75cf2c07b38e">
+  <source>Selected Sources</source>
+</trans-unit>
+<trans-unit id="s3b579c4bb6b447ae">
+  <source>Successfully triggered sync.</source>
+</trans-unit>
+<trans-unit id="s05073d2537b45d1a">
+  <source>Sync</source>
+</trans-unit>
+<trans-unit id="se9da93aa2e6cce21">
+  <source>Sync User</source>
+</trans-unit>
+<trans-unit id="s7bd456df0becbbff">
+  <source>Available Stages</source>
+</trans-unit>
+<trans-unit id="sf80798d2f56b540b">
+  <source>Selected Stages</source>
+</trans-unit>
+<trans-unit id="sf651943c3ddff635">
+  <source>Available Fields</source>
+</trans-unit>
+<trans-unit id="s80ba9c5ebb7826a9">
+  <source>Selected Fields</source>
+</trans-unit>
+<trans-unit id="s26733a6289ca6f1a">
+  <source>Available Transports</source>
+</trans-unit>
+<trans-unit id="sa65f772cfc5aa67e">
+  <source>Selected Transports</source>
+</trans-unit>
+<trans-unit id="sd923f95605fed7b2">
+  <source>Expired</source>
+</trans-unit>
+<trans-unit id="s86959994f28077dc">
+  <source>Expiring soon</source>
+</trans-unit>
+<trans-unit id="sc60a5fba70bf5a53">
+  <source>Unlicensed</source>
+</trans-unit>
+<trans-unit id="s4f9880ce82953741">
+  <source>Read Only</source>
+</trans-unit>
+<trans-unit id="s4220dda46d622211">
+  <source>Valid</source>
+</trans-unit>
+<trans-unit id="sdc94711a2eb66a45">
+  <source>Current license status</source>
+</trans-unit>
+<trans-unit id="se10fb73c1f1039c5">
+  <source>Overall license status</source>
+</trans-unit>
+<trans-unit id="sc4804358f202968c">
+  <source>Internal user usage</source>
+</trans-unit>
+<trans-unit id="s087d6f07b52b30ec">
+  <source><x id="0" equiv-text="${internalUserPercentage &lt; Infinity ? internalUserPercentage : &quot;∞&quot;}"/>%</source>
+</trans-unit>
+<trans-unit id="sae72e1569d34fb02">
+  <source>External user usage</source>
+</trans-unit>
+<trans-unit id="sa82f8948649d0989">
+  <source>Matches Event's Client IP (strict matching, for network matching use an Expression Policy).</source>
+</trans-unit>
+<trans-unit id="s6506b7c69456b0d6">
+  <source>Invalid update request.</source>
+</trans-unit>
+<trans-unit id="s3819162efec77de1">
+  <source>Sync Group</source>
+</trans-unit>
+<trans-unit id="s2d5f69929bb7221d">
+  <source><x id="0" equiv-text="${prompt.name}"/> ("<x id="1" equiv-text="${prompt.fieldKey}"/>", of type <x id="2" equiv-text="${prompt.type}"/>)</source>
+</trans-unit>
+<trans-unit id="sa38c5a2731be3a46">
+  <source>authentik was unable to save this application:</source>
+</trans-unit>
+<trans-unit id="s25bacc19d98b444e">
+  <source>Parent Group</source>
 </trans-unit>
     </body>
   </file>

@@ -19,6 +19,12 @@ Use this migration tool to:
 
 ## Steps to use
 
+1. Generate a migratefile with `docsmg generate >> migratefile`
+2. Find the files you want to move in `migratefile` and insert the path you want to move them to after the arrow; ex `path/to/move/from/file.md -> path/to/move/to/file.md` Note: make sure to put spaces on either side of the arrow or that line won't be recognized
+3. Once you have entered all the paths you want to move, migrate the files with `docsmg migrate`
+4. To revert the migration, use `docsmg unmigrate`; Note: DO NOT edit the migrate file in between steps 3 and 4
+5. Repeat steps 2-4 until you are satisfied with the result
+
 ### Create the mapping file (`migratefile`)
 
 1. Navigate to the `authentik/website` dir.
@@ -43,7 +49,7 @@ After you have run `migrate`, you cannot run it again or you will get a `panic` 
 :::
 
 2. To revert the migration, use `docsmg unmigrate`.
-   Note: DO NOT edit the `migratefile` file in befor running `unmigrate`.
+   Note: DO NOT edit the `migratefile` file before running `unmigrate`.
 3. Continue modifying the `migratefile` file and then using the `docsmg migrate` command until you are satisfied with the result.
 
 ### Update the `sidebar.js file`
@@ -54,7 +60,7 @@ Because the structure is completely changed, you will need to modify/reconstruct
 
 To test the internal links, navigate up a level to `authentik` and then run `make website-watch`.
 
-## Toubleshooting
+## Troubleshooting
 
 -   If the `docsmg generate` command pulls _all_ of the files in the repo (even non-docs files), then check that:
     -   the `docsmg.env` exists
